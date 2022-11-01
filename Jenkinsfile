@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    repo = "tutorbrijan/dockerpipeline"
+    repo = "imashok7/pipelinedemo"
   }
   agent any
   stages {
@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Docker Push') {
       steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerhub-access', usernameVariable: 'User', passwordVariable: 'Password')]) {
+        withCredentials([usernamePassword(credentialsId: 'DockerHubCred', usernameVariable: 'User', passwordVariable: 'Password')]) {
           sh "docker login -u ${env.User} -p ${env.Password}"
           sh 'docker push $repo:v$BUILD_NUMBER'
         }
